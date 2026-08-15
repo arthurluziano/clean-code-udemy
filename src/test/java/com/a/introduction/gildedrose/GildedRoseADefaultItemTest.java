@@ -6,43 +6,50 @@ import org.junit.jupiter.api.Test;
 
 public class GildedRoseADefaultItemTest {
 
-    private static final String DEFAULT_ITEM_NAME = "DEFAULT_ITEM";
+    private static final String DEFAULT_ITEM = "DEFAULT_ITEM";
 
-    private Item buildDefaultItem(int sellInValue, int qualityValue) {
-        return new Item(DEFAULT_ITEM_NAME, sellInValue, qualityValue);
-    }
+    private static final int NOT_EXPIRED_SELLIN_VALUE = 3;
+    private static final int EXPIRED_SELLIN_VALUE = -4;
+    private static final int DEFAULT_QUALITY_VALUE = 18;
 
-    private Item[] buildItemsList(Item itemToAdd) {
-        return new Item[] { itemToAdd };
+	@Test
+	public void shouldDecreaseItemQualityByOne_whenItemSellInValueIsNotExpired() {
+        // Setup
+		GildedRose app = createGildedRose(DEFAULT_ITEM, NOT_EXPIRED_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
+
+        // Invoke
+		app.updateQuality();
+
+        // Verify
+        Item expected = new Item(DEFAULT_ITEM, NOT_EXPIRED_SELLIN_VALUE - 1, DEFAULT_QUALITY_VALUE - 1);
+
+        assertItem(expected, app.items[0]);
     }
 
 	@Test
-	public void testUpdateQualityDefault1() {
-        int sellInValue = 3;
-        int qualityValue = 18;
-        Item item = buildDefaultItem(sellInValue, qualityValue);
-		Item[] items = buildItemsList(item);
-		GildedRose app = new GildedRose(items);
+	public void shouldDecreaseItemQualityByTwo_whenItemSellInValueIsExpired() {
+        // Setup
+		GildedRose app = createGildedRose(DEFAULT_ITEM, EXPIRED_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
 
+        // Invoke
 		app.updateQuality();
 
-		assertEquals(DEFAULT_ITEM_NAME, app.items[0].name);
-		assertEquals(sellInValue - 1, app.items[0].sellIn);
-		assertEquals(qualityValue - 1, app.items[0].quality);
+        // Verify
+        Item expected = new Item(DEFAULT_ITEM, EXPIRED_SELLIN_VALUE - 1, DEFAULT_QUALITY_VALUE - 2);
+
+        assertItem(expected, app.items[0]);
 	}
 
-	@Test
-	public void testUpdateQualityForExpiredItem() {
-        int sellInValue = -4;
-        int qualityValue = 7;
-        Item item = buildDefaultItem(sellInValue, qualityValue);
-        Item[] items = buildItemsList(item);
-		GildedRose app = new GildedRose(items);
+    private GildedRose createGildedRose(String itemType, int sellinValue, int qualityValue) {
+        Item item = new Item(itemType, sellinValue, qualityValue);
+        Item[] items = new Item[] { item };
 
-		app.updateQuality();
+        return new GildedRose(items);
+    }
 
-		assertEquals(DEFAULT_ITEM_NAME, app.items[0].name);
-		assertEquals(sellInValue - 1, app.items[0].sellIn);
-		assertEquals(qualityValue - 2, app.items[0].quality);
-	}
+    private void assertItem(Item expected, Item actual) {
+        assertEquals(expected.name, actual.name);
+        assertEquals(expected.sellIn, actual.sellIn);
+        assertEquals(expected.quality, actual.quality);
+    }
 }
