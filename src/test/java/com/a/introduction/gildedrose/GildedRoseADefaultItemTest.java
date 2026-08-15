@@ -5,40 +5,44 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class GildedRoseADefaultItemTest {
-	/**
-	 * Method to test the variation in quality of the item for the non expired
-	 * Item.
-	 * 
-	 * The quality should decrease by 1 when the item is not expired
-	 * and sell in should decrease by 1.
-	 * 
-	 */
+
+    private static final String DEFAULT_ITEM_NAME = "DEFAULT_ITEM";
+
+    private Item buildDefaultItem(int sellInValue, int qualityValue) {
+        return new Item(DEFAULT_ITEM_NAME, sellInValue, qualityValue);
+    }
+
+    private Item[] buildItemsList(Item itemToAdd) {
+        return new Item[] { itemToAdd };
+    }
+
 	@Test
 	public void testUpdateQualityDefault1() {
-		Item item = new Item("DEFAULT_ITEM", 15, 3);
-		Item[] items = new Item[] { item };
+        int sellInValue = 3;
+        int qualityValue = 18;
+        Item item = buildDefaultItem(sellInValue, qualityValue);
+		Item[] items = buildItemsList(item);
 		GildedRose app = new GildedRose(items);
+
 		app.updateQuality();
-		assertEquals("DEFAULT_ITEM", app.items[0].name);
-		assertEquals(14, app.items[0].sellIn);
-		assertEquals(2, app.items[0].quality);
+
+		assertEquals(DEFAULT_ITEM_NAME, app.items[0].name);
+		assertEquals(sellInValue - 1, app.items[0].sellIn);
+		assertEquals(qualityValue - 1, app.items[0].quality);
 	}
 
-	/**
-	 * Method to test the variation in quality of the item for the non expired
-	 * Item.
-	 * 
-	 * The quality should decrease by 2 when the item is expired(Sell in  < 0) and sell in should decrease by 1.
-	 * 
-	 */
 	@Test
 	public void testUpdateQualityForExpiredItem() {
-		Item item = new Item("DEFAULT_ITEM", -1, 3);
-		Item[] items = new Item[] { item };
+        int sellInValue = -4;
+        int qualityValue = 7;
+        Item item = buildDefaultItem(sellInValue, qualityValue);
+        Item[] items = buildItemsList(item);
 		GildedRose app = new GildedRose(items);
+
 		app.updateQuality();
-		assertEquals("DEFAULT_ITEM", app.items[0].name);
-		assertEquals(-2, app.items[0].sellIn);
-		assertEquals(1, app.items[0].quality);
+
+		assertEquals(DEFAULT_ITEM_NAME, app.items[0].name);
+		assertEquals(sellInValue - 1, app.items[0].sellIn);
+		assertEquals(qualityValue - 2, app.items[0].quality);
 	}
 }
