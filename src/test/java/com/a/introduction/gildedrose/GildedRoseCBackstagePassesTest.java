@@ -48,4 +48,17 @@ public class GildedRoseCBackstagePassesTest {
         assertItem(expected.items[0], app.items[0]);
 	}
 
+    @Test
+    public void shouldResetQualityToZero_whenConcertIsAlreadyGone() {
+        // Setup
+        GildedRose app = createGildedRose(BACKSTAGE_PASSES, ALMOST_EXPIRED_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
+
+        // Invoke
+        app.updateQuality();
+
+        // Verify
+        GildedRose expected = createGildedRose(BACKSTAGE_PASSES, ALMOST_EXPIRED_SELLIN_VALUE - 1, ZERO_QUALITY_VALUE);
+
+        assertItem(expected.items[0], app.items[0]);
+    }
 }

@@ -10,9 +10,11 @@ public class GildedRoseUtils {
     public static final int MORE_THAN_TEN_SELLIN_VALUE = 15;
     public static final int MORE_THAN_FIVE_SELLIN_VALUE = 7;
     public static final int NOT_EXPIRED_SELLIN_VALUE = 3;
+    public static final int ALMOST_EXPIRED_SELLIN_VALUE = 0;
     public static final int EXPIRED_SELLIN_VALUE = -4;
     public static final int DEFAULT_QUALITY_VALUE = 18;
     public static final int MAX_QUALITY_VALUE = 50;
+    public static final int ZERO_QUALITY_VALUE = 0;
 
     public static GildedRose createGildedRose(String itemType, int sellInValue, int qualityValue) {
         Item item = new Item(itemType, sellInValue, qualityValue);
