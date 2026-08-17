@@ -7,7 +7,7 @@ import static com.a.introduction.gildedrose.GildedRoseUtils.*;
 public class GildedRoseCBackstagePassesTest {
 	
 	@Test
-	public void testUpdateQualityBackstagePasses1() {
+	public void shouldIncreaseQualityByOne_whenSellInValueIsMoreThanTenDays() {
         // Setup
         GildedRose app = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_TEN_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
 
@@ -21,7 +21,7 @@ public class GildedRoseCBackstagePassesTest {
 	}
 
 	@Test
-	public void testUpdateQualityBackstagePasses2() {
+	public void shouldIncreaseQualityByTwo_whenSellInValueIsLessThanTenDays() {
         // Setup
         GildedRose app = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_FIVE_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
 
@@ -35,7 +35,7 @@ public class GildedRoseCBackstagePassesTest {
 	}
 
 	@Test
-	public void testUpdateQualityBackstagePasses3() {
+	public void shouldIncreaseQualityByThree_whenSellInValueIsLessThanFiveDays() {
         // Setup
         GildedRose app = createGildedRose(BACKSTAGE_PASSES, NOT_EXPIRED_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
 
