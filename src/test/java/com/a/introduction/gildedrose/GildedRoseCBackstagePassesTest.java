@@ -1,45 +1,51 @@
 package com.a.introduction.gildedrose;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
+
+import static com.a.introduction.gildedrose.GildedRoseUtils.*;
 
 public class GildedRoseCBackstagePassesTest {
 	
 	@Test
 	public void testUpdateQualityBackstagePasses1() {
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 15, 3);
-		Item[] items = new Item[] { item };
-		GildedRose app = new GildedRose(items);
+        // Setup
+        GildedRose app = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_TEN_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
+
+        // Invoke
 		app.updateQuality();
-		assertEquals("Backstage passes to a TAFKAL80ETC concert",
-				app.items[0].name);
-		assertEquals(14, app.items[0].sellIn);
-		assertEquals(4, app.items[0].quality);
+
+        // Verify
+        GildedRose expected = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_TEN_SELLIN_VALUE - 1, DEFAULT_QUALITY_VALUE + 1);
+
+        assertItem(expected.items[0], app.items[0]);
 	}
 
 	@Test
 	public void testUpdateQualityBackstagePasses2() {
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 7, 3);
-		Item[] items = new Item[] { item };
-		GildedRose app = new GildedRose(items);
+        // Setup
+        GildedRose app = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_FIVE_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
+
+        // Invoke
 		app.updateQuality();
-		assertEquals("Backstage passes to a TAFKAL80ETC concert",
-				app.items[0].name);
-		assertEquals(6, app.items[0].sellIn);
-		assertEquals(5, app.items[0].quality);
+
+        // Verify
+        GildedRose expected = createGildedRose(BACKSTAGE_PASSES, MORE_THAN_FIVE_SELLIN_VALUE - 1, DEFAULT_QUALITY_VALUE + 2);
+
+        assertItem(expected.items[0], app.items[0]);
 	}
 
 	@Test
 	public void testUpdateQualityBackstagePasses3() {
-		Item item = new Item("Backstage passes to a TAFKAL80ETC concert", 4, 3);
-		Item[] items = new Item[] { item };
-		GildedRose app = new GildedRose(items);
+        // Setup
+        GildedRose app = createGildedRose(BACKSTAGE_PASSES, NOT_EXPIRED_SELLIN_VALUE, DEFAULT_QUALITY_VALUE);
+
+        // Invoke
 		app.updateQuality();
-		assertEquals("Backstage passes to a TAFKAL80ETC concert",
-				app.items[0].name);
-		assertEquals(3, app.items[0].sellIn);
-		assertEquals(6, app.items[0].quality);
+
+        // Verify
+        GildedRose expected = createGildedRose(BACKSTAGE_PASSES, NOT_EXPIRED_SELLIN_VALUE - 1, DEFAULT_QUALITY_VALUE + 3);
+
+        assertItem(expected.items[0], app.items[0]);
 	}
 
 }
