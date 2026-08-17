@@ -1,16 +1,11 @@
 package com.a.introduction.gildedrose;
 
+import static com.a.introduction.gildedrose.GildedRoseUtils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class GildedRoseADefaultItemTest {
-
-    private static final String DEFAULT_ITEM = "DEFAULT_ITEM";
-
-    private static final int NOT_EXPIRED_SELLIN_VALUE = 3;
-    private static final int EXPIRED_SELLIN_VALUE = -4;
-    private static final int DEFAULT_QUALITY_VALUE = 18;
 
 	@Test
 	public void shouldDecreaseItemQualityByOne_whenItemSellInValueIsNotExpired() {
@@ -39,17 +34,4 @@ public class GildedRoseADefaultItemTest {
 
         assertItem(expected, app.items[0]);
 	}
-
-    private GildedRose createGildedRose(String itemType, int sellinValue, int qualityValue) {
-        Item item = new Item(itemType, sellinValue, qualityValue);
-        Item[] items = new Item[] { item };
-
-        return new GildedRose(items);
-    }
-
-    private void assertItem(Item expected, Item actual) {
-        assertEquals(expected.name, actual.name);
-        assertEquals(expected.sellIn, actual.sellIn);
-        assertEquals(expected.quality, actual.quality);
-    }
 }

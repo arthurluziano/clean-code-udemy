@@ -2,7 +2,7 @@ package com.a.introduction.gildedrose;
 
 import java.util.Arrays;
 
-class GildedRose {
+public class GildedRose {
 	
 	Item[] items;
 
