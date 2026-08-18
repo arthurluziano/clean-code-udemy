@@ -2,19 +2,18 @@ package com.b.simple.design.business.student;
 public class StudentHelper {
 
 	private static final int GRADE_B_MINIMUM_VALUE = 51;
-	private static final int GRADE_B_DEFAULT_MAXIMUM_VALUE = 80;
-	private static final int GRADE_B_MATH_MAXIMUM_VALUE = 90;
+	private static final int GRADE_B_MAXIMUM_VALUE = 80;
+	private static final int EXTRA_LIMIT_VALUE = 10;
 
 	/* PROBLEM 1 */	
 	/*
 	* You get a grade B if marks are between 51 and 80 (both inclusive). Except for Maths where the upper limit is increased by 10.
 	*/
 	public boolean isGradeB(int marks, boolean isMaths) {
-		if (marks < GRADE_B_MINIMUM_VALUE) return false;
+		int extraLimit = isMaths ? EXTRA_LIMIT_VALUE : 0;
+		int upperLimit = GRADE_B_MAXIMUM_VALUE + extraLimit;
 
-		return isMaths
-				? marks <= GRADE_B_MATH_MAXIMUM_VALUE
-				: marks <= GRADE_B_DEFAULT_MAXIMUM_VALUE;
+		return marks >= GRADE_B_MINIMUM_VALUE && marks <= upperLimit;
 	}
 
 	/* PROBLEM 2 */
