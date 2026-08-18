@@ -6,6 +6,8 @@ public class StudentHelper {
 	private static final int GRADE_A_MINIMUM_VALUE = 91;
 	private static final int EXTRA_LIMIT_VALUE = 10;
 	private static final int MATHS_PLUS_VALUE = 5;
+	private static final int QUIZ_GOOD_VALUE = 80;
+	private static final int QUIZ_BAD_VALUE = 20;
 
 	/* PROBLEM 1 */	
 	/*
@@ -53,10 +55,16 @@ public class StudentHelper {
     */
         
     public String willQualifyForQuiz(int marks1, int marks2, boolean isMaths) {
-        if ((isMaths ? marks1 <= 25 : marks1 <= 20)
-                || (isMaths ? marks2 <= 25 : marks2 <= 20)) return "NO";
-        if ((isMaths ? marks1 >= 85 : marks1 >= 80)
-                || (isMaths ? marks2 >= 85 : marks2 >= 80)) return "YES";
+		int mathsPlusValue = isMaths ? MATHS_PLUS_VALUE : 0;
+		int quizGoodValue = QUIZ_GOOD_VALUE + mathsPlusValue;
+		int quizBadValue = QUIZ_BAD_VALUE + mathsPlusValue;
+
+		boolean isSomeOfThemGoodAt = marks1 >= quizGoodValue || marks2 >= quizGoodValue;
+		boolean isSomeOfThemBadAt = marks1 <= quizBadValue || marks2 <= quizBadValue;
+
+		if (isSomeOfThemGoodAt) return "YES";
+		if (isSomeOfThemBadAt) return "NO";
+
         return "MAYBE";
     }	
 
