@@ -16,7 +16,7 @@ public class TextHelper {
 	}
 
 	public String truncateAInFirst2Positions(String str) {
-		if (str.isBlank()) return str;
+		if (str.isBlank() || str.length() < 2) return str;
 
 		String firstTwoChars = str.substring(0, 2);
 		firstTwoChars = firstTwoChars.replaceAll("A", "");
