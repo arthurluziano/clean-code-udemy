@@ -3,7 +3,9 @@ public class StudentHelper {
 
 	private static final int GRADE_B_MINIMUM_VALUE = 51;
 	private static final int GRADE_B_MAXIMUM_VALUE = 80;
+	private static final int GRADE_A_MINIMUM_VALUE = 91;
 	private static final int EXTRA_LIMIT_VALUE = 10;
+	private static final int MATHS_PLUS_VALUE = 5;
 
 	/* PROBLEM 1 */	
 	/*
@@ -24,26 +26,14 @@ public class StudentHelper {
 	*/
 
 	public String getGrade(int mark, boolean isMaths) {
-		String grade = "C";
+		int mathsPlusValue = isMaths ? MATHS_PLUS_VALUE : 0;
 		
-		if (isGradeA(mark, isMaths))
-			grade = "A";
-		else if (isBGrade(mark, isMaths)) {
-			grade = "B";
-		}
-		return grade;
-	}
+		if (mark >= GRADE_A_MINIMUM_VALUE + mathsPlusValue)
+			return "A";
+		if (mark >= GRADE_B_MINIMUM_VALUE + mathsPlusValue)
+			return "B";
 
-	private boolean isGradeA(int mark, boolean isMaths) {
-		int lowerLimitForAGrade = isMaths ? 95
-				: 90;
-		return mark > lowerLimitForAGrade;
-	}
-
-	private boolean isBGrade(int mark, boolean isMaths) {
-		int lowerLimitGradeB = isMaths ? 55
-				: 50;
-		return mark > lowerLimitGradeB && mark < 90;
+		return "C";
 	}
 
     /*  PROBLEM 3
